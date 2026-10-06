@@ -29,20 +29,66 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        titulo = new javax.swing.JLabel();
+        opcion = new javax.swing.JLabel();
+        btnAlumnos = new javax.swing.JButton();
+        btnMaterias = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gestión Universitaria");
         setResizable(false);
 
+        titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        titulo.setText("SISTEMA DE GESTIÓN UNIVERSITARIA");
+
+        opcion.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        opcion.setText("Seleccione una opción");
+
+        btnAlumnos.setText("Gestionar Alumnos");
+        btnAlumnos.addActionListener(this::btnAlumnosActionPerformed);
+
+        btnMaterias.setText("Gestionar Materias");
+        btnMaterias.addActionListener(this::btnMateriasActionPerformed);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(this::btnSalirActionPerformed);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 627, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(54, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(titulo)
+                        .addGap(51, 51, 51))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAlumnos)
+                            .addComponent(opcion)
+                            .addComponent(btnMaterias))
+                        .addGap(199, 199, 199))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(242, 242, 242)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 468, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(titulo)
+                .addGap(18, 18, 18)
+                .addComponent(opcion)
+                .addGap(23, 23, 23)
+                .addComponent(btnAlumnos)
+                .addGap(18, 18, 18)
+                .addComponent(btnMaterias)
+                .addGap(18, 18, 18)
+                .addComponent(btnSalir)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -58,6 +104,20 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnosActionPerformed
+        VistaAlumno ventana = new VistaAlumno();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnAlumnosActionPerformed
+
+    private void btnMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMateriasActionPerformed
+        VistaMateria ventana = new VistaMateria();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnMateriasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -85,6 +145,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlumnos;
+    private javax.swing.JButton btnMaterias;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel opcion;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
