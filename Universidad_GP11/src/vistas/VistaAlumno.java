@@ -46,7 +46,7 @@ public class VistaAlumno extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         jDateChooser = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        botonEstado = new javax.swing.JRadioButton();
 
         jLabel1.setText("jLabel1");
 
@@ -84,7 +84,7 @@ public class VistaAlumno extends javax.swing.JFrame {
 
         jLabel7.setText("Estado:");
 
-        jRadioButton1.addActionListener(this::jRadioButton1ActionPerformed);
+        botonEstado.addActionListener(this::botonEstadoActionPerformed);
 
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -101,7 +101,7 @@ public class VistaAlumno extends javax.swing.JFrame {
         jDesktopPane1.setLayer(btnSalir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jDateChooser, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jRadioButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botonEstado, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -142,7 +142,7 @@ public class VistaAlumno extends javax.swing.JFrame {
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton1)
+                                    .addComponent(botonEstado)
                                     .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(212, 212, 212)
@@ -170,7 +170,7 @@ public class VistaAlumno extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1))
+                    .addComponent(botonEstado))
                 .addGap(13, 13, 13)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,22 +218,21 @@ public class VistaAlumno extends javax.swing.JFrame {
     txtDni.setText("");
     txtApellido.setText("");
     txtNombre.setText("");
-    txtFechaNac.setText("");
+    jDateChooser.setDate(null);
+    botonEstado.setEnabled(false);
     txtDni.requestFocus();        
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    txtDni.setText("");
-    txtApellido.setText("");
-    txtNombre.setText("");
-    txtFechaNac.setText("");
+   
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
          String dni = txtDni.getText().trim();
     String apellido = txtApellido.getText().trim();
     String nombre = txtNombre.getText().trim();
-    String fecha = txtFechaNac.getText().trim();
+    String fecha = jDateChooser.getDateFormatString().trim();
+    boolean estado = botonEstado.isEnabled();
 
     if (dni.isEmpty() || apellido.isEmpty()
             || nombre.isEmpty() || fecha.isEmpty()) {
@@ -264,9 +263,9 @@ public class VistaAlumno extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void botonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_botonEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,6 +293,7 @@ public class VistaAlumno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton botonEstado;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
@@ -308,7 +308,6 @@ public class VistaAlumno extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDni;
