@@ -176,7 +176,7 @@ public class AlumnoData {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     // =========================
     // BORRAR ALUMNO
     // DELETE
@@ -201,6 +201,7 @@ public class AlumnoData {
 
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 }
 
