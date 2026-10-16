@@ -28,128 +28,132 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        titulo = new javax.swing.JLabel();
-        opcion = new javax.swing.JLabel();
-        btnAlumnos = new javax.swing.JButton();
-        btnMaterias = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        menuFormularioAlumno = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menuFormularioMateria = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        menuManejoInscripciones = new javax.swing.JMenuItem();
+        menuManipulacionNotas = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        menuAlumosPorMateria = new javax.swing.JMenuItem();
+        menuSalir = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sistema de Gestión Universitaria");
+        setTitle("Sistema de Gestión Universitaria (SGULP)");
         setResizable(false);
 
-        titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        titulo.setText("SISTEMA DE GESTIÓN UNIVERSITARIA");
-
-        opcion.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        opcion.setText("Seleccione una opción");
-
-        btnAlumnos.setText("Gestionar Alumnos");
-        btnAlumnos.addActionListener(this::btnAlumnosActionPerformed);
-
-        btnMaterias.setText("Gestionar Materias");
-        btnMaterias.addActionListener(this::btnMateriasActionPerformed);
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(this::btnSalirActionPerformed);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(titulo)
-                        .addGap(51, 51, 51))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAlumnos)
-                            .addComponent(opcion)
-                            .addComponent(btnMaterias))
-                        .addGap(199, 199, 199))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(242, 242, 242)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 749, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(titulo)
-                .addGap(18, 18, 18)
-                .addComponent(opcion)
-                .addGap(23, 23, 23)
-                .addComponent(btnAlumnos)
-                .addGap(18, 18, 18)
-                .addComponent(btnMaterias)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalir)
-                .addContainerGap(16, Short.MAX_VALUE))
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 585, Short.MAX_VALUE)
         );
+
+        jMenu1.setText("Alumno");
+
+        menuFormularioAlumno.setText("Formulario de Alumno");
+        menuFormularioAlumno.addActionListener(this::menuFormularioAlumnoActionPerformed);
+        jMenu1.add(menuFormularioAlumno);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Materia");
+
+        menuFormularioMateria.setText("Formulario de Materia");
+        menuFormularioMateria.addActionListener(this::menuFormularioMateriaActionPerformed);
+        jMenu2.add(menuFormularioMateria);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Administración");
+
+        menuManejoInscripciones.setText("Manejo de Inscripciones");
+        jMenu3.add(menuManejoInscripciones);
+
+        menuManipulacionNotas.setText("Manipulación de notas");
+        jMenu3.add(menuManipulacionNotas);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Consultas");
+
+        menuAlumosPorMateria.setText("Alumnos por Materia");
+        jMenu4.add(menuAlumosPorMateria);
+
+        jMenuBar1.add(jMenu4);
+
+        menuSalir.setText("Salir");
+        menuSalir.addActionListener(this::menuSalirActionPerformed);
+
+        jMenuItem1.setText("Salir del sistema");
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
+        menuSalir.add(jMenuItem1);
+
+        jMenuBar1.add(menuSalir);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btnSalirActionPerformed
+    private void menuFormularioAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFormularioAlumnoActionPerformed
+        // TODO add your handling code here:
+        VistaAlumno vistaAlumno= new VistaAlumno();
+        jDesktopPane1.add(vistaAlumno);
+        vistaAlumno.setVisible(true);
+    }//GEN-LAST:event_menuFormularioAlumnoActionPerformed
 
-    private void btnAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnosActionPerformed
-        VistaAlumno ventana = new VistaAlumno();
-        ventana.setVisible(true);
-    }//GEN-LAST:event_btnAlumnosActionPerformed
+    private void menuFormularioMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFormularioMateriaActionPerformed
+        // TODO add your handling code here:
+        VistaMateria vistaMateria = new VistaMateria();
+        jDesktopPane1.add(vistaMateria);
+        vistaMateria.setVisible(true);
+    }//GEN-LAST:event_menuFormularioMateriaActionPerformed
 
-    private void btnMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMateriasActionPerformed
-        VistaMateria ventana = new VistaMateria();
-        ventana.setVisible(true);
-    }//GEN-LAST:event_btnMateriasActionPerformed
+    private void menuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSalirActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_menuSalirActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VistaPrincipal().setVisible(true));
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAlumnos;
-    private javax.swing.JButton btnMaterias;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel opcion;
-    private javax.swing.JLabel titulo;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem menuAlumosPorMateria;
+    private javax.swing.JMenuItem menuFormularioAlumno;
+    private javax.swing.JMenuItem menuFormularioMateria;
+    private javax.swing.JMenuItem menuManejoInscripciones;
+    private javax.swing.JMenuItem menuManipulacionNotas;
+    private javax.swing.JMenu menuSalir;
     // End of variables declaration//GEN-END:variables
 }
