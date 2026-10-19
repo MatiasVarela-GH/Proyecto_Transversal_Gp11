@@ -1,3 +1,5 @@
+package persistencia;
+
 
 import entidades.Alumno;
 import entidades.Inscripcion;
