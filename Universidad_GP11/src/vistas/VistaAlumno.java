@@ -3,12 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vistas;
-
+import entidades.Alumno;
+import persistencia.AlumnoData;
+import persistencia.miConexion;
+import java.util.Date;
 /**
  *
  * @author User
  */
 public class VistaAlumno extends javax.swing.JInternalFrame {
+    private AlumnoData alumnoData;
+private int idAlumnoSeleccionado = -1;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaAlumno.class.getName());
 
@@ -16,8 +21,19 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
      * Creates new form VistaAlumno
      */
     public VistaAlumno() {
-        initComponents();
-    }
+    initComponents();
+
+    miConexion conexion = new miConexion(
+        "jdbc:mariadb://localhost:3307/sistema de gestión",
+        "root",
+        ""
+    );
+
+    alumnoData = new AlumnoData(conexion);
+
+    botonEstado.setText("Activo");
+    botonEstado.setSelected(true);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -206,54 +222,158 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String dni = txtDni.getText().trim();
-        String apellido = txtApellido.getText().trim();
-        String nombre = txtNombre.getText().trim();
-        String fecha = jDateChooser.getDateFormatString().trim();
-        boolean estado = botonEstado.isEnabled();
+        String dniTexto = txtDni.getText().trim();
+    String apellido = txtApellido.getText().trim();
+    String nombre = txtNombre.getText().trim();
+    Date fecha = jDateChooser.getDate();
 
-        if (dni.isEmpty() || apellido.isEmpty()
-            || nombre.isEmpty() || fecha.isEmpty()) {
+    if (dniTexto.isEmpty() || apellido.isEmpty()
+            || nombre.isEmpty() || fecha == null) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, "Complete todos los campos."
+        );
+        return;
+    }
+
+    int dni;
+
+    try {
+        dni = Integer.parseInt(dniTexto);
+    } catch (NumberFormatException ex) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, "El DNI debe contener solo números."
+        );
+        return;
+    }
+
+    Alumno a = new Alumno(
+        idAlumnoSeleccionado,
+        dni,
+        apellido,
+        nombre,
+        java.sql.Date.valueOf(fecha.toInstant()
+            .atZone(java.time.ZoneId.systemDefault())
+            .toLocalDate()).toLocalDate(),
+        botonEstado.isSelected()
+    );
+
+    if (idAlumnoSeleccionado == -1) {
+        alumnoData.guardarAlumno(a);
+
+        if (a.getId() != -1) {
+            idAlumnoSeleccionado = a.getId();
 
             javax.swing.JOptionPane.showMessageDialog(
-                this,
-                "Complete todos los campos."
+                this, "Alumno guardado correctamente."
             );
-            return;
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(
+                this, "No se pudo guardar el alumno. Revisá la consola."
+            );
         }
+    } else {
+        alumnoData.actualizarAlumno(a);
 
         javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Datos del alumno validados correctamente."
+            this, "Se solicitó la actualización del alumno."
         );
+    }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+ if (idAlumnoSeleccionado == -1) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, "Primero buscá el alumno que querés eliminar."
+        );
+        return;
+    }
 
+    int respuesta = javax.swing.JOptionPane.showConfirmDialog(
+        this,
+        "¿Seguro que querés eliminar este alumno?",
+        "Confirmar eliminación",
+        javax.swing.JOptionPane.YES_NO_OPTION
+    );
+
+    if (respuesta == javax.swing.JOptionPane.YES_OPTION) {
+        alumnoData.borrarAlumno(idAlumnoSeleccionado);
+
+        javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Se solicitó la eliminación. Si tiene cursadas asociadas, "
+            + "la base de datos puede impedirla."
+        );
+
+        limpiarFormulario();
+    }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        txtDni.setText("");
-        txtApellido.setText("");
-        txtNombre.setText("");
-        jDateChooser.setDate(null);
-        botonEstado.setEnabled(false);
-        txtDni.requestFocus();
+        limpiarFormulario();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String dni = txtDni.getText().trim();
-        if (dni.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(
-                this,
-                "Ingrese el DNI del alumno." );
-            txtDni.requestFocus();
-            return; }
+       String dniTexto = txtDni.getText().trim();
+
+    if (dniTexto.isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Falta conectar la búsqueda con los datos de alumnos." );
+            this, "Ingrese el DNI del alumno."
+        );
+        return;
+    }
+
+    int dni;
+
+    try {
+        dni = Integer.parseInt(dniTexto);
+    } catch (NumberFormatException ex) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, "El DNI debe contener solo números."
+        );
+        return;
+    }
+
+    Alumno a = alumnoData.buscarAlumnoPorDni(dni);
+
+    if (a == null) {
+        idAlumnoSeleccionado = -1;
+
+        javax.swing.JOptionPane.showMessageDialog(
+            this, "No se encontró un alumno con ese DNI."
+        );
+        return;
+    
+    }
+  
+
+    idAlumnoSeleccionado = a.getId();
+
+    txtDni.setText(String.valueOf(a.getDni()));
+    txtApellido.setText(a.getApellido());
+    txtNombre.setText(a.getNombre());
+
+    Date fecha = java.sql.Date.valueOf(a.getFechaNac());
+    jDateChooser.setDate(fecha);
+
+    botonEstado.setSelected(a.isActivo());
+
+    javax.swing.JOptionPane.showMessageDialog(
+        this, "Alumno encontrado."
+    );
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void limpiarFormulario() {
+    idAlumnoSeleccionado = -1;
+    txtDni.setText("");
+    txtApellido.setText("");
+    txtNombre.setText("");
+    jDateChooser.setDate(null);
+    botonEstado.setSelected(true);
+    txtDni.requestFocus();
+}
+    
+    
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoActionPerformed

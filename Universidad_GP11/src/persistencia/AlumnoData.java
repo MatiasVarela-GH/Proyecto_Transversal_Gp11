@@ -83,7 +83,7 @@ public class AlumnoData {
 
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
 
                 a = new Alumno();
 
@@ -207,5 +207,47 @@ public class AlumnoData {
         }
         
     }
+    
+    
+    // =========================
+    // BUSCAR ALUMNO POR DNI
+    // DELETE
+    // =========================
+    
+    public Alumno buscarAlumnoPorDni(int dni) {
+    Alumno a = null;
+
+    String sql = "SELECT * FROM alumno WHERE dni = ?";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, dni);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            a = new Alumno();
+            a.setId(rs.getInt("idAlumno"));
+            a.setDni(rs.getInt("dni"));
+            a.setApellido(rs.getString("apellido"));
+            a.setNombre(rs.getString("nombre"));
+            a.setFechaNac(rs.getDate("fecNac").toLocalDate());
+            a.setActivo(rs.getBoolean("activo"));
+        }
+
+        rs.close();
+        ps.close();
+
+    } catch (SQLException ex) {
+        Logger.getLogger(AlumnoData.class.getName())
+              .log(Level.SEVERE, null, ex);
+    }
+
+    return a;
+}
+    
+    
+    
+    
 }
 
