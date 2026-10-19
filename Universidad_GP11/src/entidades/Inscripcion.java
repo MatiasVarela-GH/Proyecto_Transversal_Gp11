@@ -8,15 +8,23 @@ public class Inscripcion {
     private int idMateria;
     private float nota;
     private float asistencia;
-    private int cursa;
+    private int anioCursada;
 
-    public Inscripcion(int idCursada, int idAlumno, int idMateria, float nota, float asistencia, int cursa) {
-        this.idCursada = idCursada;
+    public Inscripcion(int idCursada, int idAlumno, int idMateria, float nota, float asistencia, int anioCursada){
+        this.idCursada= idCursada;
         this.idAlumno = idAlumno;
         this.idMateria = idMateria;
         this.nota = nota;
         this.asistencia = asistencia;
-        this.cursa = cursa;
+        this.anioCursada = anioCursada;
+    }
+
+    public Inscripcion(int idAlumno, int idMateria, float nota, float asistencia, int anioCursada) {
+        this.idAlumno = idAlumno;
+        this.idMateria = idMateria;
+        this.nota = nota;
+        this.asistencia = asistencia;
+        this.anioCursada = anioCursada;
     }
 
     public int getIdCursada() {
@@ -59,20 +67,23 @@ public class Inscripcion {
         this.asistencia = asistencia;
     }
 
-    public int getCursa() {
-        return cursa;
+    public int getAnioCursada() {
+        return anioCursada;
     }
 
-    public void setCursa(int cursa) {
-        this.cursa = cursa;
+    public void setAnioCursada(int anioCursada) {
+        this.anioCursada = anioCursada;
     }
     
     
     
-    @Override
-    public String toString(){
-        return "ID de la cursada:" + idCursada + " " + "ID de la materia: " + idMateria + " " + "Nota de la materia: " + nota + " " + "Asistencias registradas: " + asistencia;
-        
-    }
+   @Override
+public String toString() {
+    return "ID de la cursada: " + idCursada
+            + " ID de la materia: " + idMateria
+            + " Año de cursada: " + anioCursada
+            + " Nota: " + nota
+            + " Asistencias registradas: " + asistencia;
+}
     
 }

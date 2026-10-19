@@ -1,14 +1,11 @@
 package persistencia;
 
-
-
-import entidades.Alumno;
+import entidades.Materia;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,12 +20,12 @@ public class MateriaData {
     }
 
     // =========================
-    // GUARDAR ALUMNO
+    // GUARDAR MATERIA
     // INSERT
     // =========================
-    public void guardarAlumno(Alumno a) {
+    public void guardarMateria(Materia m) {
 
-        String sql = "INSERT INTO alumno(dni, nombre, fecNac, activo) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO materia(nombre, estado) VALUES (?,?)";
 
         try {
 
@@ -37,10 +34,8 @@ public class MateriaData {
                     Statement.RETURN_GENERATED_KEYS
             );
 
-            ps.setInt(1, a.getDni());
-            ps.setString(2, a.getNombre());
-            ps.setDate(3, Date.valueOf(a.getFechaNac()));
-            ps.setBoolean(4, a.isActivo());
+            ps.setString(1, m.getNombre());
+            ps.setBoolean(2, m.isEstado());
 
             ps.executeUpdate();
 
@@ -48,31 +43,32 @@ public class MateriaData {
             ResultSet rs = ps.getGeneratedKeys();
 
             if (rs.next()) {
-                a.setId(rs.getInt(1));
+                m.setIdMateria(rs.getInt(1));
             } else {
                 System.out.println("No se pudo obtener el ID");
             }
 
+            rs.close();
             ps.close();
 
-            System.out.println("Alumno guardado correctamente");
+            System.out.println("Materia guardada correctamente");
 
         } catch (SQLException ex) {
 
-            System.out.println("No se pudo insertar el alumno");
+            System.out.println("No se pudo insertar la materia");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     // =========================
-    // BUSCAR ALUMNO POR ID
+    // BUSCAR MATERIA POR ID
     // SELECT
     // =========================
-    public Alumno buscarAlumno(int id) {
+    public Materia buscarMateria(int id) {
 
-        Alumno a = null;
+        Materia m = null;
 
-        String sql = "SELECT * FROM alumno WHERE idAlumno = ?";
+        String sql = "SELECT * FROM materia WHERE idMateria= ?";
 
         try {
 
@@ -82,19 +78,13 @@ public class MateriaData {
 
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-
-                a = new Alumno();
-
-                a.setId(rs.getInt("idAlumno"));
-                a.setDni(rs.getInt("dni"));
-                a.setNombre(rs.getString("nombre"));
-                a.setFechaNac(
-                        rs.getDate("fecNac").toLocalDate()
-                );
-                a.setActivo(rs.getBoolean("activo"));
+            if (rs.next()) {
+                m = new Materia();
+                m.setIdMateria(rs.getInt("idMateria"));
+                m.setNombre(rs.getString("nombre"));
+                m.setEstado(rs.getBoolean("estado"));
             }
-
+            rs.close();
             ps.close();
 
         } catch (SQLException ex) {
@@ -102,18 +92,18 @@ public class MateriaData {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return a;
+        return m;
     }
 
     // =========================
-    // LISTAR TODOS LOS ALUMNOS
+    // LISTAR TODAS LAS MATERIAS
     // SELECT *
     // =========================
-    public List<Alumno> listarAlumnos() {
+    public List<Materia> listarMaterias() {
 
-        List<Alumno> alumnos = new ArrayList<>();
+        List<Materia> materias = new ArrayList<>();
 
-        String query = "SELECT * FROM alumno";
+        String query = "SELECT * FROM materia";
 
         try {
 
@@ -123,19 +113,14 @@ public class MateriaData {
 
             while (rs.next()) {
 
-                Alumno a = new Alumno();
+                Materia m = new Materia();
 
-                a.setId(rs.getInt("idAlumno"));
-                a.setDni(rs.getInt("dni"));
-                a.setNombre(rs.getString("nombre"));
-                a.setFechaNac(
-                        rs.getDate("fecNac").toLocalDate()
-                );
-                a.setActivo(rs.getBoolean("activo"));
-
-                alumnos.add(a);
+                m.setIdMateria(rs.getInt("idMateria"));
+                m.setNombre(rs.getString("nombre"));
+                m.setEstado(rs.getBoolean("estado"));
+                materias.add(m);
             }
-
+            rs.close();
             ps.close();
 
         } catch (SQLException ex) {
@@ -143,47 +128,50 @@ public class MateriaData {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return alumnos;
+        return materias;
     }
 
     // =========================
-    // ACTUALIZAR ALUMNO
+    // ACTUALIZAR MATERIA
     // UPDATE
     // =========================
-    public void actualizarAlumno(Alumno a) {
+    public void actualizarMateria(Materia m) {
 
-        String query = "UPDATE alumno SET dni = ?, nombre = ?, fecNac = ?, activo = ? "
-                + "WHERE idAlumno = ?";
+        String query = "UPDATE materia SET nombre = ?, estado = ? "
+                + "WHERE idMateria = ?";
 
         try {
 
             PreparedStatement ps = con.prepareStatement(query);
 
-            ps.setInt(1, a.getDni());
-            ps.setString(2, a.getNombre());
-            ps.setDate(3, Date.valueOf(a.getFechaNac()));
-            ps.setBoolean(4, a.isActivo());
-            ps.setInt(5, a.getId());
+            ps.setString(1, m.getNombre());
+            ps.setBoolean(2, m.isEstado());
+            ps.setInt(3, m.getIdMateria());
 
-            ps.executeUpdate();
+           int filas = ps.executeUpdate();
 
             ps.close();
 
-            System.out.println("Alumno actualizado correctamente");
+
+            if (filas > 0) {
+                System.out.println("Materia actualizada correctamente");
+            } else {
+                System.out.println("No se encontró la materia");
+            }
 
         } catch (SQLException ex) {
 
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     // =========================
-    // BORRAR ALUMNO
+    // BORRAR MATERIA
     // DELETE
     // =========================
-    public void borrarAlumno(int id) {
+    public void borrarMateria(int id) {
 
-        String query = "DELETE FROM alumno WHERE idAlumno = ?";
+        String query = "DELETE FROM materia WHERE idMateria= ?";
 
         try {
 
@@ -191,17 +179,20 @@ public class MateriaData {
 
             ps.setInt(1, id);
 
-            ps.executeUpdate();
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                System.out.println("Materia eliminada correctamente");
+            } else {
+                System.out.println("No se encontró la materia");
+            }
 
             ps.close();
 
-            System.out.println("Alumno eliminado correctamente");
 
         } catch (SQLException ex) {
 
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 }
-

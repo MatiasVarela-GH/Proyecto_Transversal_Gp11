@@ -24,6 +24,10 @@ public class Materia {
         this.estado = estado;
     }
 
+    public Materia() {
+    }
+     
+
     public int getIdMateria() {
         return idMateria;
     }

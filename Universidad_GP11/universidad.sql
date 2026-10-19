@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 07-10-2026 a las 00:30:57
+-- Servidor: 127.0.0.1:3307
+-- Tiempo de generación: 19-10-2026 a las 03:54:30
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -32,7 +32,7 @@ USE `sistema de gestión`;
 CREATE TABLE `alumno` (
   `idAlumno` int(11) NOT NULL,
   `dni` int(11) NOT NULL,
-  `apellido` varchar(30) NOT NULL,
+  `apellido` varchar(100) NOT NULL DEFAULT '',
   `nombre` varchar(30) NOT NULL,
   `fecNac` date NOT NULL,
   `activo` tinyint(1) NOT NULL
@@ -49,8 +49,8 @@ CREATE TABLE `cursada` (
   `idAlumno` int(11) NOT NULL,
   `idMateria` int(11) NOT NULL,
   `nota` float NOT NULL,
-  `asist` float NOT NULL,
-  `cursa` year(4) NOT NULL
+  `asistencia` float NOT NULL,
+  `aniocursada` year(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -97,7 +97,7 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `idAlumno` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAlumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `cursada`
