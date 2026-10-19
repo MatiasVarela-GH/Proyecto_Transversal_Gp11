@@ -1,8 +1,69 @@
-
 package vistas;
 
+import entidades.Alumno;
+import entidades.Materia;
+import entidades.Inscripcion;
+import persistencia.AlumnoData;
+import persistencia.InscripcionData;
+import persistencia.MateriaData;
+import persistencia.miConexion;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+import java.util.List;
 
 public class VistaFormularioInscripcion extends javax.swing.JInternalFrame {
+    
+    private AlumnoData alumnoData;
+    private InscripcionData inscripcionData;
+    private MateriaData materiaData;
+
+    public VistaFormularioInscripcion() {
+        initComponents();
+
+        miConexion conexion = new miConexion(
+                "jdbc:mariadb://localhost:3306/sulp",
+                "root",
+                ""
+        );
+
+        alumnoData = new AlumnoData(conexion);
+        inscripcionData = new InscripcionData(conexion);
+        materiaData = new MateriaData(conexion);
+
+        cargarAlumnos();
+    }
+
+    private void cargarAlumnos() {
+        cboAlumno.removeAllItems();
+
+        for (Alumno alumno : alumnoData.listarAlumnos()) {
+            cboAlumno.addItem(
+                    alumno.getId() + " - "
+                    + alumno.getApellido() + ", "
+                    + alumno.getNombre()
+            );
+        }
+    }
+    
+    private void cargarMateriasNoInscriptas() {
+        if (cboAlumno.getSelectedItem() == null) {
+            return;
+        }
+
+        String seleccionado = cboAlumno.getSelectedItem().toString();
+        int idAlumno = Integer.parseInt(seleccionado.split(" - ")[0]);
+
+        DefaultTableModel modelo = (DefaultTableModel) tblMaterias.getModel();
+        modelo.setRowCount(0);
+
+        for (Materia materia : inscripcionData.listarMateriasNoInscriptas(idAlumno)) {
+            modelo.addRow(new Object[]{
+                materia.getIdMateria(),
+                materia.getNombre(),
+                materia.getAnio()
+            });
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -107,7 +168,7 @@ public class VistaFormularioInscripcion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 41, Short.MAX_VALUE)
+                        .addGap(0, 62, Short.MAX_VALUE)
                         .addComponent(btnInscribir)
                         .addGap(50, 50, 50)
                         .addComponent(btnAnular)
@@ -158,27 +219,135 @@ public class VistaFormularioInscripcion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cboAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboAlumnoActionPerformed
-        // TODO add your handling code here:
+        cargarMateriasNoInscriptas();
     }//GEN-LAST:event_cboAlumnoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-
+        dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void rbInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbInscriptasActionPerformed
+        if (cboAlumno.getSelectedItem() == null) {
+            return;
+        }
 
+        String seleccionado = cboAlumno.getSelectedItem().toString();
+        int idAlumno = Integer.parseInt(seleccionado.split(" - ")[0]);
+
+        DefaultTableModel modelo = (DefaultTableModel) tblMaterias.getModel();
+        modelo.setRowCount(0);
+
+        for (Materia materia : inscripcionData.listarMateriasPorAlumno(idAlumno)) {
+            modelo.addRow(new Object[]{
+                materia.getIdMateria(),
+                materia.getNombre(),
+                materia.getAnio()
+            });
+        }
     }//GEN-LAST:event_rbInscriptasActionPerformed
 
     private void rbNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNoInscriptasActionPerformed
-
+        cargarMateriasNoInscriptas();
     }//GEN-LAST:event_rbNoInscriptasActionPerformed
 
     private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
+        if (cboAlumno.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccioná un alumno.");
+            return;
+        }
 
+        int fila = tblMaterias.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccioná una materia de la tabla.");
+            return;
+        }
+
+        int idAlumno = Integer.parseInt(
+                cboAlumno.getSelectedItem().toString().split(" - ")[0]
+        );
+
+        int idMateria = Integer.parseInt(
+                tblMaterias.getValueAt(fila, 0).toString()
+        );
+
+        Materia materia = materiaData.buscarMateria(idMateria);
+
+        if (materia == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró la materia.");
+            return;
+        }
+
+        Inscripcion inscripcion = new Inscripcion();
+        inscripcion.setIdAlumno(idAlumno);
+        inscripcion.setIdMateria(idMateria);
+        inscripcion.setCuatrimestre(materia.getCuatrimestre());
+        inscripcion.setAnioCursada(java.time.Year.now().getValue());
+        inscripcion.setNota(0);
+        inscripcion.setAsistencia(0);
+        inscripcion.setEstado(true);
+
+        inscripcionData.guardarInscripcion(inscripcion);
+
+        if (inscripcion.getIdCursada() != -1) {
+            JOptionPane.showMessageDialog(this, "Inscripción realizada correctamente.");
+            cargarMateriasNoInscriptas();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "No se pudo confirmar la inscripción. Revisá la consola de NetBeans.");
+        }
     }//GEN-LAST:event_btnInscribirActionPerformed
 
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
+        if (cboAlumno.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccioná un alumno.");
+            return;
+        }
 
+        int fila = tblMaterias.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccioná una materia de la tabla.");
+            return;
+        }
+
+        int idAlumno = Integer.parseInt(
+                cboAlumno.getSelectedItem().toString().split(" - ")[0]
+        );
+
+        int idMateria = Integer.parseInt(
+                tblMaterias.getValueAt(fila, 0).toString()
+        );
+
+        int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Querés anular la inscripción a esta materia?",
+                "Confirmar anulación",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        Inscripcion inscripcionSeleccionada = null;
+
+        for (Inscripcion inscripcion : inscripcionData.listarInscripcionesPorAlumno(idAlumno)) {
+            if (inscripcion.getIdMateria() == idMateria && inscripcion.isEstado()) {
+                inscripcionSeleccionada = inscripcion;
+                break;
+            }
+        }
+
+        if (inscripcionSeleccionada == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró la inscripción.");
+            return;
+        }
+
+        inscripcionData.desinscribirAlumno(inscripcionSeleccionada.getIdCursada());
+
+        JOptionPane.showMessageDialog(this, "Inscripción anulada.");
+        cargarMateriasNoInscriptas();
     }//GEN-LAST:event_btnAnularActionPerformed
 
 

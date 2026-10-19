@@ -157,6 +157,87 @@ public class InscripcionData {
 
         return materias;
     }
+    
+    // =========================
+    // LISTAR MATERIAS NO INSCRIPTAS
+    // =========================
+
+    public List<Materia> listarMateriasNoInscriptas(int idAlumno) {
+        List<Materia> materias = new ArrayList<>();
+
+        String sql = "SELECT m.* FROM materia m "
+                + "WHERE m.estado = 1 "
+                + "AND m.idMateria NOT IN ("
+                + "SELECT c.idMateria FROM cursada c "
+                + "WHERE c.idAlumno = ? AND c.estado = 1)";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Materia m = new Materia();
+                m.setIdMateria(rs.getInt("idMateria"));
+                m.setNombre(rs.getString("nombre"));
+                m.setEstado(rs.getBoolean("estado"));
+                m.setAnio(rs.getInt("anio"));
+                m.setCuatrimestre(rs.getInt("cuatrimestre"));
+
+                materias.add(m);
+            }
+
+            rs.close();
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Error al listar materias no inscriptas: "
+                    + ex.getMessage());
+        }
+
+        return materias;
+    }
+    
+    // =========================
+    // LISTAR iNSCRIPCIONES X ALUMNO
+    // =========================
+
+    public List<Inscripcion> listarInscripcionesPorAlumno(int idAlumno) {
+        List<Inscripcion> inscripciones = new ArrayList<>();
+
+        String sql = "SELECT * FROM cursada WHERE idAlumno = ? AND estado = 1";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Inscripcion i = new Inscripcion();
+                i.setIdCursada(rs.getInt("idCursada"));
+                i.setIdAlumno(rs.getInt("idAlumno"));
+                i.setIdMateria(rs.getInt("idMateria"));
+                i.setCuatrimestre(rs.getInt("cuatrimestre"));
+                i.setNota(rs.getFloat("nota"));
+                i.setAsistencia(rs.getFloat("asistencias"));
+                i.setAnioCursada(rs.getInt("anioLectivo"));
+                i.setEstado(rs.getBoolean("estado"));
+
+                inscripciones.add(i);
+            }
+
+            rs.close();
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Error al listar inscripciones: " + ex.getMessage());
+        }
+
+        return inscripciones;
+    }
+
 
     // =========================
     // LISTAR ALUMNOS POR MATERIA
