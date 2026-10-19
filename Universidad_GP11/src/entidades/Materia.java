@@ -1,32 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entidades;
 
-/**
- *
- * @author matia
- */
 public class Materia {
-     private int idMateria = -1;
-     private String nombre;
-     private boolean estado;
 
-    public Materia(int idMateria,String nombre, boolean estado) {
-        this.idMateria= idMateria;
+    private int idMateria = -1;
+    private String nombre;
+    private boolean estado;
+    private int anio = 1;
+    private int cuatrimestre = 1;
+
+    public Materia(int idMateria, String nombre, boolean estado) {
+        this.idMateria = idMateria;
         this.nombre = nombre;
         this.estado = estado;
     }
-     public Materia(String nombre, boolean estado) {
-        this.idMateria= -1;
+
+    public Materia(String nombre, boolean estado) {
+        this.idMateria = -1;
         this.nombre = nombre;
         this.estado = estado;
     }
 
     public Materia() {
     }
-     
 
     public int getIdMateria() {
         return idMateria;
@@ -51,11 +47,27 @@ public class Materia {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-      @Override
-public String toString() {
-    return idMateria + " " + nombre;
-}
 
-    
-     
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    public int getCuatrimestre() {
+        return cuatrimestre;
+    }
+
+    public void setCuatrimestre(int cuatrimestre) {
+        this.cuatrimestre = cuatrimestre;
+    }
+
+    @Override
+    public String toString() {
+        return idMateria + " " + nombre
+                + " - Año " + anio
+                + " - Cuatrimestre " + cuatrimestre;
+    }
 }

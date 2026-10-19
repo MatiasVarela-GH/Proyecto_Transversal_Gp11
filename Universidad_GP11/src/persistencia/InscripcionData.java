@@ -128,10 +128,10 @@ public class InscripcionData {
 
         List<Materia> materias = new ArrayList<>();
 
-        String sql = "SELECT m.* "
+        String sql = "SELECT DISTINCT m.* "
                 + "FROM materia m "
                 + "INNER JOIN cursada c ON m.idMateria = c.idMateria "
-                + "WHERE c.idAlumno = ? ";
+                + "WHERE c.idAlumno = ?";
 
         try {
 
@@ -184,8 +184,8 @@ public class InscripcionData {
                 a.setDni(rs.getInt("dni"));
                 a.setApellido(rs.getString("apellido"));
                 a.setNombre(rs.getString("nombre"));
-                a.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
-                a.setActivo(rs.getBoolean("estado"));
+                a.setFechaNac(rs.getDate("fecNac").toLocalDate());
+                a.setActivo(rs.getBoolean("activo"));
 
                 alumnos.add(a);
             }

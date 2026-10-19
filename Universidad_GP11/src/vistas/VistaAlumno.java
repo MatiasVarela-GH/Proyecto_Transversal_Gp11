@@ -24,7 +24,7 @@ private int idAlumnoSeleccionado = -1;
     initComponents();
 
     miConexion conexion = new miConexion(
-        "jdbc:mariadb://localhost:3307/sistema de gestión",
+        "jdbc:mariadb://localhost:3306/sulp",
         "root",
         ""
     );

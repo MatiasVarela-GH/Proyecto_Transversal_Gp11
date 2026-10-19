@@ -16,17 +16,25 @@ public class miConexion{
         usuario=usr;
         password=pass;
     }
-    public Connection buscarConexion(){
-        if (conexion==null) {  // si es la primera vez
-            try {
-                //cargamos las clases de mariadb que implementan JDBC
-                //   Class.forName("com.mysql.jdbc.Driver");  // 1
-                  Class.forName("org.mariadb.jdbc.Driver");  // 1
-                conexion = DriverManager.getConnection(url, usuario, password);  // 2
-            } catch (SQLException | ClassNotFoundException ex) {  // si me olvide de importar la libreria // error al cargar los drivers
-                System.out.println("No se puede conectar o no se puede cargar el driver. Error: "+ ex.getMessage());
-            }
+    public Connection buscarConexion() {
+    if (conexion == null) {
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+
+            conexion = DriverManager.getConnection(
+                url,
+                usuario,
+                password
+            );
+
+            System.out.println("Conexión a la base de datos exitosa.");
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("Error de conexión: " + ex.getMessage());
+            conexion = null;
         }
-        return conexion; // retorna la conexion establecida
     }
+
+    return conexion;
+}
   }

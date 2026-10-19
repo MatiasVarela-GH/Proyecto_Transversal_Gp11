@@ -34,11 +34,10 @@ public class SGULP {
     void conectar(Alumno alumno) {
 
         conexion = new miConexion(
-                "jdbc:mariadb://localhost:3307/sistema de gestión",
+                "jdbc:mariadb://localhost:3306/sulp",
                 "root",
                 ""
         );
-
         alumnoData = new AlumnoData(conexion);
 
         // Guardar
