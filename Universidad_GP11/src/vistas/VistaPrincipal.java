@@ -80,6 +80,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu3.add(menuManejoInscripciones);
 
         menuManipulacionNotas.setText("Manipulación de notas");
+        menuManipulacionNotas.addActionListener(this::menuManipulacionNotasActionPerformed);
         jMenu3.add(menuManipulacionNotas);
 
         jMenuBar1.add(jMenu3);
@@ -148,6 +149,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
       
         
     }//GEN-LAST:event_menuManejoInscripcionesActionPerformed
+
+    private void menuManipulacionNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuManipulacionNotasActionPerformed
+        VistaCargaNotas vistaCargaNotas = new VistaCargaNotas();
+        jDesktopPane1.add(vistaCargaNotas);
+        vistaCargaNotas.setVisible(true);
+    }//GEN-LAST:event_menuManipulacionNotasActionPerformed
 
 
 
