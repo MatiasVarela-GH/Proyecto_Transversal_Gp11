@@ -1,20 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package vistas;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Taigo Capo
- */
 public class VistaCargaNotas extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form VistaCargaNotas
-     */
     public VistaCargaNotas() {
     initComponents();
     configurarVista();
