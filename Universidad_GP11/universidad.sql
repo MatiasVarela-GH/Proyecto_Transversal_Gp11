@@ -32,6 +32,7 @@ USE `sistema de gestión`;
 CREATE TABLE `alumno` (
   `idAlumno` int(11) NOT NULL,
   `dni` int(11) NOT NULL,
+  `apellido` varchar(30) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `fecNac` date NOT NULL,
   `activo` tinyint(1) NOT NULL
