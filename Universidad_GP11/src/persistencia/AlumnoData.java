@@ -28,7 +28,7 @@ public class AlumnoData {
     // =========================
     public void guardarAlumno(Alumno a) {
 
-        String sql = "INSERT INTO alumno(dni, nombre, fecNac, activo) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO alumno(dni, nombre, apellido, fecNac, activo) VALUES (?,?,?,?,?)";
 
         try {
 
@@ -39,8 +39,9 @@ public class AlumnoData {
 
             ps.setInt(1, a.getDni());
             ps.setString(2, a.getNombre());
-            ps.setDate(3, Date.valueOf(a.getFechaNac()));
-            ps.setBoolean(4, a.isActivo());
+            ps.setString(3, a.getApellido());
+            ps.setDate(4, Date.valueOf(a.getFechaNac()));
+            ps.setBoolean(5, a.isActivo());
 
             ps.executeUpdate();
 
@@ -89,6 +90,7 @@ public class AlumnoData {
                 a.setId(rs.getInt("idAlumno"));
                 a.setDni(rs.getInt("dni"));
                 a.setNombre(rs.getString("nombre"));
+                a.setApellido(rs.getString("apellido"));
                 a.setFechaNac(
                         rs.getDate("fecNac").toLocalDate()
                 );
@@ -128,6 +130,7 @@ public class AlumnoData {
                 a.setId(rs.getInt("idAlumno"));
                 a.setDni(rs.getInt("dni"));
                 a.setNombre(rs.getString("nombre"));
+                a.setApellido(rs.getString("apellido"));
                 a.setFechaNac(
                         rs.getDate("fecNac").toLocalDate()
                 );
@@ -152,7 +155,7 @@ public class AlumnoData {
     // =========================
     public void actualizarAlumno(Alumno a) {
 
-        String query = "UPDATE alumno SET dni = ?, nombre = ?, fecNac = ?, activo = ? "
+        String query = "UPDATE alumno SET dni = ?, nombre = ?, apellido = ?, fecNac = ?, activo = ? "
                 + "WHERE idAlumno = ?";
 
         try {
@@ -161,9 +164,10 @@ public class AlumnoData {
 
             ps.setInt(1, a.getDni());
             ps.setString(2, a.getNombre());
-            ps.setDate(3, Date.valueOf(a.getFechaNac()));
-            ps.setBoolean(4, a.isActivo());
-            ps.setInt(5, a.getId());
+            ps.setString(3, a.getApellido());
+            ps.setDate(4, Date.valueOf(a.getFechaNac()));
+            ps.setBoolean(5, a.isActivo());
+            ps.setInt(6, a.getId());
 
             ps.executeUpdate();
 

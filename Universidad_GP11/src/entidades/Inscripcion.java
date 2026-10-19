@@ -6,26 +6,34 @@ public class Inscripcion {
     private int idCursada;
     private int idAlumno;
     private int idMateria;
+    private int cuatrimestre;
     private float nota;
     private float asistencia;
     private int anioCursada;
+    private boolean estado;
 
-    public Inscripcion(int idCursada, int idAlumno, int idMateria, float nota, float asistencia, int anioCursada){
+    public Inscripcion(int idCursada, int idAlumno, int idMateria, int cuatrimestre, float nota, float asistencia, int anioCursada, boolean estado){
         this.idCursada= idCursada;
         this.idAlumno = idAlumno;
         this.idMateria = idMateria;
+        this.cuatrimestre = cuatrimestre;
         this.nota = nota;
         this.asistencia = asistencia;
         this.anioCursada = anioCursada;
     }
 
-    public Inscripcion(int idAlumno, int idMateria, float nota, float asistencia, int anioCursada) {
+    public Inscripcion(int idAlumno, int idMateria, int cuatrimestre, float nota, float asistencia, int anioCursada, boolean estado) {
         this.idAlumno = idAlumno;
         this.idMateria = idMateria;
+        this.cuatrimestre = cuatrimestre;
         this.nota = nota;
         this.asistencia = asistencia;
         this.anioCursada = anioCursada;
     }
+
+    public Inscripcion() {
+    }
+    
 
     public int getIdCursada() {
         return idCursada;
@@ -51,6 +59,15 @@ public class Inscripcion {
         this.idMateria = idMateria;
     }
 
+    public int getCuatrimestre() {
+        return cuatrimestre;
+    }
+
+    public void setCuatrimestre(int cuatrimestre) {
+        this.cuatrimestre = cuatrimestre;
+    }
+    
+
     public float getNota() {
         return nota;
     }
@@ -73,6 +90,14 @@ public class Inscripcion {
 
     public void setAnioCursada(int anioCursada) {
         this.anioCursada = anioCursada;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
     

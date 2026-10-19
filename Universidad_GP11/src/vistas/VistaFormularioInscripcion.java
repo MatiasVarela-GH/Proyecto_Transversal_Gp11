@@ -4,84 +4,22 @@
  */
 package vistas;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-
-
 /**
  *
  * @author Taigo Capo
  */
+
 public class VistaFormularioInscripcion extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form VistaFormularioInscripcion
-     */
-    public VistaFormularioInscripcion() {
-        initComponents();
-        cboAlumno.removeAllItems();
-        
-    // Configurar tabla'
-    tblMaterias.setModel(new DefaultTableModel(
-        new Object[][] {},
-        new String[] {"ID", "Nombre", "Año"}
-    ) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    });
+     * Creates new form VistaFormularioInscripcion**/
 
-    // Estado inicial
-    rbNoInscriptas.setSelected(true);
-
-    actualizarTabla();
-}
+  
+ 
     
 
-private void actualizarTabla() {
-        DefaultTableModel modelo =
-            (DefaultTableModel) tblMaterias.getModel();
-
-        modelo.setRowCount(0);
-
-        boolean mostrarInscriptas =
-            rbInscriptas.isSelected();
-
-        for (MateriaDemo m : materias) {
-            if (m.inscripta == mostrarInscriptas) {
-                modelo.addRow(new Object[] {
-                    m.id,
-                    m.nombre,
-                    m.anio
-                });
-            }
-        }
-
-        btnInscribir.setEnabled(!mostrarInscriptas);
-        btnAnular.setEnabled(mostrarInscriptas);
-    }
 
 
-
-    private final List<MateriaDemo> materias = new ArrayList<>();
-
-private static class MateriaDemo {
-    int id;
-    String nombre;
-    int anio;
-    boolean inscripta;
-
-    public MateriaDemo(int id, String nombre,
-                       int anio, boolean inscripta) {
-        this.id = id;
-        this.nombre = nombre;
-        this.anio = anio;
-        this.inscripta = inscripta;
-    }
-}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -226,7 +164,6 @@ private static class MateriaDemo {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -246,63 +183,23 @@ private static class MateriaDemo {
     }//GEN-LAST:event_cboAlumnoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-       dispose();
+
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void rbInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbInscriptasActionPerformed
-         actualizarTabla();
+
     }//GEN-LAST:event_rbInscriptasActionPerformed
 
     private void rbNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNoInscriptasActionPerformed
-        actualizarTabla();
+
     }//GEN-LAST:event_rbNoInscriptasActionPerformed
 
     private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
-        int fila = tblMaterias.getSelectedRow();
 
-    if (fila == -1) {
-        JOptionPane.showMessageDialog(this,
-            "Seleccione una materia.");
-        return;
-    }
-
-    int id = (int) tblMaterias.getValueAt(fila, 0);
-
-    for (MateriaDemo m : materias) {
-        if (m.id == id) {
-            m.inscripta = true;
-            break;
-        }
-    }
-
-    actualizarTabla();
-
-    JOptionPane.showMessageDialog(this,
-        "Inscripción realizada correctamente.");
     }//GEN-LAST:event_btnInscribirActionPerformed
 
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
-         int fila = tblMaterias.getSelectedRow();
 
-    if (fila == -1) {
-        JOptionPane.showMessageDialog(this,
-            "Seleccione una materia.");
-        return;
-    }
-
-    int id = (int) tblMaterias.getValueAt(fila, 0);
-
-    for (MateriaDemo m : materias) {
-        if (m.id == id) {
-            m.inscripta = false;
-            break;
-        }
-    }
-
-    actualizarTabla();
-
-    JOptionPane.showMessageDialog(this,
-        "Inscripción anulada correctamente.");
     }//GEN-LAST:event_btnAnularActionPerformed
 
 
@@ -324,4 +221,5 @@ private static class MateriaDemo {
     private javax.swing.JRadioButton rbNoInscriptas;
     private javax.swing.JTable tblMaterias;
     // End of variables declaration//GEN-END:variables
+
 }
