@@ -24,21 +24,11 @@ public class SGULP {
             System.out.println("Excepcion capturada acerca de el Look and Feel");
         }
         
-        VistaPrincipal v1 = new VistaPrincipal(); //instanciamos un objeto de vistaPrincipal
-        v1.setLocationRelativeTo(null); //centramos la ventana creada 
-        v1.setVisible(true); //hacemos visible la ventana.
-        
-        
-        
-        
-        Alumno alumno = new Alumno(
-                28180533,
-                "Juan Cruz",
-                LocalDate.of(1997, 9, 13),
-                true
-        );
-
-        new SGULP().conectar(alumno);
+       java.awt.EventQueue.invokeLater(() -> {
+    VistaPrincipal v1 = new VistaPrincipal();
+    v1.setLocationRelativeTo(null);
+    v1.setVisible(true);
+});
     }
 
     void conectar(Alumno alumno) {

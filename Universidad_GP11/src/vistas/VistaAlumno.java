@@ -46,7 +46,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         botonEstado = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
         setTitle("alumnos");
 
         btnEliminar.setText("Eliminar");

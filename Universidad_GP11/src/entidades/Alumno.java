@@ -4,24 +4,30 @@ import java.time.LocalDate;
 public class Alumno {
     private int id = -1;
     private int dni;
+    private String apellido;
     private String nombre;
     private LocalDate fechaNac;
     private boolean activo;
 
-    public Alumno(int id,int dni, String nombre, LocalDate fechaNac, boolean activo) {
-        this.id= id;
-        this.dni = dni;
-        this.nombre = nombre;
-        this.fechaNac = fechaNac;
-        this.activo = activo;
-    }
-     public Alumno(int dni, String nombre, LocalDate fechaNac, boolean activo) {
-        this.id = -1;
-        this.dni = dni;
-        this.nombre = nombre;
-        this.fechaNac = fechaNac;
-        this.activo = activo;
-    }
+public Alumno(int id, int dni, String apellido, String nombre,
+        LocalDate fechaNac, boolean activo) {
+    this.id = id;
+    this.dni = dni;
+    this.apellido = apellido;
+    this.nombre = nombre;
+    this.fechaNac = fechaNac;
+    this.activo = activo;
+}
+
+public Alumno(int dni, String apellido, String nombre,
+        LocalDate fechaNac, boolean activo) {
+    this.id = -1;
+    this.dni = dni;
+    this.apellido = apellido;
+    this.nombre = nombre;
+    this.fechaNac = fechaNac;
+    this.activo = activo;
+}
      public Alumno (){
          this.id = -1;
      }
@@ -42,6 +48,14 @@ public class Alumno {
         this.dni = dni;
     }
 
+    public String getApellido() {
+    return apellido;
+}
+
+public void setApellido(String apellido) {
+    this.apellido = apellido;
+}
+    
     public String getNombre() {
         return nombre;
     }
@@ -65,8 +79,8 @@ public class Alumno {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-   @Override
+@Override
 public String toString() {
-    return id + " " + nombre;
+    return id + " " + apellido + ", " + nombre;
 }
 }
