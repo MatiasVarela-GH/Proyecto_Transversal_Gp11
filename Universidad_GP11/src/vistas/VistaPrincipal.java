@@ -86,8 +86,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Consultas");
+        jMenu4.addActionListener(this::jMenu4ActionPerformed);
 
         menuAlumosPorMateria.setText("Alumnos por Materia");
+        menuAlumosPorMateria.addActionListener(this::menuAlumosPorMateriaActionPerformed);
         jMenu4.add(menuAlumosPorMateria);
 
         jMenuBar1.add(jMenu4);
@@ -156,18 +158,21 @@ public class VistaPrincipal extends javax.swing.JFrame {
         vistaCargaNotas.setVisible(true);
     }//GEN-LAST:event_menuManipulacionNotasActionPerformed
 
-private void menuAlumosPorMateriaActionPerformed(
-        java.awt.event.ActionEvent evt) {
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
 
-    VistaListadoAlumnos vista = new VistaListadoAlumnos();
-    jDesktopPane1.add(vista);
+    }//GEN-LAST:event_jMenu4ActionPerformed
 
-    vista.setVisible(true);
-    vista.setLocation(
-            (jDesktopPane1.getWidth() - vista.getWidth()) / 2,
-            (jDesktopPane1.getHeight() - vista.getHeight()) / 2
-    );
-}
+    private void menuAlumosPorMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlumosPorMateriaActionPerformed
+        VistaListadoAlumnos vista = new VistaListadoAlumnos();
+        jDesktopPane1.add(vista);
+        vista.setVisible(true);
+
+        vista.setLocation(
+                (jDesktopPane1.getWidth() - vista.getWidth()) / 2,
+                (jDesktopPane1.getHeight() - vista.getHeight()) / 2
+        );
+    }//GEN-LAST:event_menuAlumosPorMateriaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;

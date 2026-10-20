@@ -190,18 +190,7 @@ private void cargarAlumnosDeMateria(Materia materia) {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-        {
 
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jPanel1 = new javax.swing.JPanel();
-        lblTitulo = new javax.swing.JLabel();
-        lblMateria = new javax.swing.JLabel();
-        cboMateria = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblAlumnos = new javax.swing.JTable();
-        btnSalir = new javax.swing.JButton();
-
-}
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
