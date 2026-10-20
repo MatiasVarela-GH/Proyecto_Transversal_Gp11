@@ -156,7 +156,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
         vistaCargaNotas.setVisible(true);
     }//GEN-LAST:event_menuManipulacionNotasActionPerformed
 
+private void menuAlumosPorMateriaActionPerformed(
+        java.awt.event.ActionEvent evt) {
 
+    VistaListadoAlumnos vista = new VistaListadoAlumnos();
+    jDesktopPane1.add(vista);
+
+    vista.setVisible(true);
+    vista.setLocation(
+            (jDesktopPane1.getWidth() - vista.getWidth()) / 2,
+            (jDesktopPane1.getHeight() - vista.getHeight()) / 2
+    );
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
